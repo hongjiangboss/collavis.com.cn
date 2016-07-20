@@ -1,0 +1,84 @@
+<div class="container-fluid">
+        {{> 'titlebar'}}
+        <div class="row" style="margin-top:4em">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5">
+                        <form class="form-horizontal" method="post" action="/product/category-edit.html?{{querystr}}" id="h-form-category">
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">编号</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="id" id="h-id" value="{{data.name}}" readonly/>
+                                        </div>
+                                </div>
+                                {{#each titleLang}}
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">名称<br><small>({{name}})</small></label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control h-from-langlist" id="h-{{code}}" name="{{code}}" value="{{value}}" />
+                                        </div>
+                                </div>
+                                {{/each}}
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">父级分类</label>
+                                        <div class="col-sm-10">
+                                                <select name="partID" id="h-partID">
+                                                        {{#each pardList}}
+                                                        <option value="{{value}}" {{selected}}>{{name}}</option>
+                                                        {{/each}}
+                                                </select>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">排序</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="h-orders" name="orders" value="0" value="{{data.orders}}" />
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">显示</label>
+                                        <div class="col-sm-10" style="width:5em">
+                                                {{#if data.isEffect}}
+                                                <input type="checkbox" name="isEffect" id="h-isEffect" checked="checked" />
+                                                {{else}}
+                                                <input type="checkbox" name="isEffect" id="h-isEffect" />
+                                                {{/if}}
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10 h-message" id="h-message"></div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="button" class="btn btn-primary" id="h-submit" onclick="hedit()">添加</button>
+                                        </div>
+                                </div>
+                        </form>
+                </div>
+        </div>
+</div>
+<script type="text/javascript">
+function hedit () {
+        var id = jQuery('#h-id').val();
+        var options = {}
+
+        if (id.length === 0) {
+                return jQuery('#h-message').html('编号不能为空')
+        }
+
+        jQuery('.h-from-langlist').each(function () {
+                options[jQuery(this).attr('name')] = jQuery(this).val()
+        })
+        jQuery.post(jQuery('#h-form-category').attr('action'), {
+                id: id,
+                options: JSON.stringify(options),
+                part: jQuery('#h-partID').val(),
+                orders: jQuery('#h-orders').val(),
+                isEffect: jQuery('#h-isEffect').val()
+        }, function (result) {
+                jQuery('#h-message').html(result['message'])
+
+                if (result['code'] === '0') {
+                        window.location.href='/product/category.html?{{querystr}}';
+                }
+        })
+}
+</script>

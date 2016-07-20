@@ -1,0 +1,74 @@
+<div id="container">
+        <div id="content">
+                <h2 class="page_tit">{{mainTitle}}</h2>
+                <div class="product_box">
+                        <div class="product_banner">
+                                <img src="{{assign product.title '/assets/sample/PRD_1512216693119158.jpg'}}" />
+                        </div>
+                        <div class="tabType1">
+                                <ul class="dpt1_ul">
+                                        <li class="dpt1_li selectedon" onclick="hshow(this)">
+                                                <a class="dpt1_link" style="cursor:pointer">
+                                                        {{productAll}}({{gridview.datalist.length}})
+                                                </a>
+                                        </li>
+                                        {{#each categoryList}}
+                                        <li id="onClass-{{key}}" onclick="hshow(this, '{{key}}')" class="dpt1_li">
+                                                <a class="dpt1_link" style="cursor:pointer">{{name}}({{num}})</a>
+                                        </li>
+                                        {{/each}}
+                                </ul>
+                        </div>
+                        <div id="productListSub" class="pdtbox" style="padding-bottom:1em;height:auto !important">
+                                <ul>
+                                        {{#each gridview.datalist}}
+                                        <li class="h-xilie h-x{{xilie}}">
+                                                <a href="{{href}}">
+                                                        <span class="pdtthum">
+                                                                <em class="icon"></em>
+						                <img src="{{picfirst}}" width="200" height="200" />
+                                                        </span>
+                                                        <span class="pdttit">{{title}}</span>
+                                                        <span class="pdtml">{{size}}</span>
+                                                        <span class="pdtcost">{{price}}</span>
+                                                </a>
+                                        </li>
+                                        {{/each}}
+                                        <li style="clear:both;float:none;height:0"></li>
+                                </ul>
+                        </div>
+                        <div class="pagingArea">
+                                <span class="prev">
+                                        <a href="{{cacheKey}}?page=1">
+                                                <img src="/assets/img/pagefirst.gif">
+                                        </a>
+                                </span>
+                                {{#each gridview.pagebars}}
+                                        {{#if active}}
+                                        <a class="current" href="javascript:void(0);">{{num}}</a>
+                                        {{else}}
+                                        <a  href="{{href}}">{{num}}</a>
+                                        {{/if}}
+                                {{/each}}
+                                <span class="next">
+                                        <a href="{{cacheKey}}?page={{gridview.pages}}">
+                                                <img src="/assets/img/pagelast.gif">
+                                        </a>
+                                </span>
+                        </div>
+                </div>
+        </div>
+</div>
+<script type="text/javascript">
+function hshow (obj, key) {
+        jQuery('.selectedon').removeClass('selectedon');
+        jQuery(obj).addClass('selectedon');
+
+        if (typeof key === 'undefined') {
+                return jQuery('.h-xilie').show();
+        }
+
+        jQuery('.h-xilie').hide();
+        jQuery('.h-x' + key).show();
+}
+</script>

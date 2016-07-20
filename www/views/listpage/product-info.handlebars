@@ -1,0 +1,145 @@
+<style type="text/css">
+.view_detail .detail_con .detail_opt dt {
+        width:80px; font-size:14px; color:#333; background:url(/assets/img/bar_line2.gif) no-repeat right center;
+}
+</style>
+<div id="container">
+        <div class="pdt_view" id="content">
+                <h2 class="page_tit">{{mainTitle}}</h2>
+                <div id="zoom_box" class="view_detail">
+			<div class="vd_leftbg" style="background:{{assign pinfo.left_bgcolor '#ee3966'}} url('{{assign pinfo.left_image '/assets/img/pdtbg1.jpg'}}') repeat-x scroll right top;"></div>
+			<div class="vd_rightbg" style="background:{{assign pinfo.right_bgcolor '#fef0ef'}} url('{{assign pinfo.right_image '/assets/img/pdt14.jpg'}}') no-repeat scroll 0 bottom"></div>
+			<div class="detail_con">
+				<div id="detail_zoomArea">
+					<div class="img_view">
+						<h3>
+                                                        <img src="{{product.picfirst}}" id="viewPrdImg" width="466" height="466" />
+                                                </h3>
+						<div id="detail_lens" style="display: none; left: 86px; top: 377px;background:url('/assets/img/pointer_bg.png')"></div>
+					</div>
+					<p class="view"></p>
+				</div>
+				<div class="view_thum">
+					<ul>
+						{{#each product.pictures}}
+						<li class="{{cls}}">
+							<a onmouseout="fnChgImg('{{src}}');" onmouseover="fnChgImg('{{src}}','viewPrdImg');" href="javascript:;">
+								<img alt="" src="{{src}}">
+								<em style="background:url('/assets/img/thum_on.png')"></em>
+							</a>
+						</li>
+                                                {{/each}}
+					</ul>
+				</div>
+                                <div id="detail_zoom" style="display: none;">
+                                        <img width="1200" height="1340" id="h-detail_zoom" src="{{product.picfirst}}" style="left: -82.513px; top: -792.547px;">
+                                </div>
+                                <div class="pdt_detail">
+					<h3>
+						<span class="Icon"></span>{{product.title}}
+					</h3>
+                                        <div class="detail_par">
+						<strong>{{productDescription}}</strong>
+						<p class="detail_txt ">{{product.description}}</p>
+					</div>
+					<script type="text/javascript">
+					$(function(){
+						$('.detail_more').click(function(){
+							if ($(this).parents('.detail_par').hasClass('open')) {
+								$('.detail_par').removeClass('open');
+								$(this).prev('.detail_txt').addClass('more_be');
+								$(this).removeClass("detail_moreclose");
+								$(".vd_rightbg").css("height", $(".view_detail").innerHeight()+"px");
+
+							}
+							else{
+								$('.detail_par').removeClass('open');
+								$(this).parents('.detail_par').addClass('open');
+								$(this).prev('.detail_txt').removeClass('more_be');
+								$(this).addClass("detail_moreclose");
+								$(".vd_rightbg").css("height", $(".view_detail").innerHeight()+30+"px");
+							};
+						});
+						return false;
+					});
+					</script>
+					<div class="detail_opt">
+						<dl>
+							<dt>{{productSize}}</dt>
+							<dd class="fontType1">{{product.size}}</dd>
+						</dl>
+						<dl class="price">
+							<dt>{{productPrice}}</dt>
+							<dd class="fontType1">¥ {{product.price}}</dd>
+						</dl>
+						<dl class="btnBox">
+							<dt>{{productShop}}</dt>
+							<dd>
+                                                                <a target="_blank" class="direct" href="{{product.shop}}">{{productShopN}}</a>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+        </div>
+        <div class="content">{{{product.content}}}</div>
+</div>
+<script type="text/javascript">
+jQuery(function(){
+	$('#detail_zoomArea').bind({
+		mousemove:function(e){
+			onMouseMove(e);
+		}
+	});
+	$('#detail_zoomArea').hover(function(){
+		$('#detail_lens').show();
+		$('#detail_zoom').show();
+	}, function(){
+		$('#detail_lens').hide();
+		$('#detail_zoom').hide();
+	});
+})
+function onMouseMove(e){
+	var pls = $('.detail_con').offset().left;
+	var ini = document.getElementById('zoom_box').offsetLeft + pls;
+	var Left = e.pageX;
+	if(Left < ini+86){
+		Left = 86;
+	}
+	else if(Left > ini+490-86){
+		Left = 490-86;
+	}
+	else{
+		Left = Left - ini;
+	}
+	var ZoomLeft = -(Left - 86) * 490 / 193;
+
+	var iniTop = document.getElementById('zoom_box').offsetTop;
+	var Top = e.pageY;
+
+	if(Top < iniTop+86){
+		Top = 86;
+	}
+	else if(Top > iniTop+463-86){
+		Top = 463-86;
+	}
+	else{
+		Top = Top - iniTop;
+	}
+	var ZoomTop = -(Top - 86) * 463 / 170 ;
+	$('#detail_lens').css({'left':Left, 'top':Top});
+	$('#detail_zoom img').css({'left':ZoomLeft, 'top':ZoomTop});
+};
+
+function fnChgImg(src) {
+	$("#viewPrdImg").attr("src", src);
+        $('#h-detail_zoom').attr('src', src);
+}
+$(function(){
+	$('.view_thum li a').hover(function(){
+		$('.view_thum li').removeClass('on');
+		$(this).parent('li').addClass('on');
+	});
+});
+</script>

@@ -1,0 +1,56 @@
+<div id="container">
+        <div id="content">
+                <h2 class="page_tit">{{mainTitle}}</h2>
+                <div class="event_box">
+                        <div class="total_box">
+                                <span class="num">{{totalNum}}<em>{{assign gridview.count 0}}</em>{{totalUnit}}</span>
+                        </div>
+                </div>
+                <div class="tablestyle1">
+                        <table>
+                                <colgroup>
+                                        <col width="114px" />
+                                        <col />
+                        		<col width="160px" />
+                        	</colgroup>
+                                <thead>
+                                        <tr>
+        					 <th>{{listNO}}</th>
+        					 <th>{{listTitle}}</th>
+        					 <th>{{listDate}}</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {{#each gridview.datalist}}
+                                        <tr>
+                                                <td>{{num}}</td>
+                                                <td class="tit">
+                                                        <a href="{{href}}">{{title}}</a>
+                                                </td>
+                                                <td>{{datetime}}</td>
+                                        </tr>
+                                        {{/each}}
+                                </tbody>
+                        </table>
+                        <div class="pagingArea">
+                                <span class="prev">
+                                        <a href="{{cacheKey}}?page=1">
+                                                <img src="/assets/img/pagefirst.gif">
+                                        </a>
+                                </span>
+                                {{#each gridview.pagebars}}
+                                        {{#if active}}
+                                        <a class="current" href="javascript:void(0);">{{num}}</a>
+                                        {{else}}
+                                        <a  href="{{href}}">{{num}}</a>
+                                        {{/if}}
+                                {{/each}}
+                                <span class="next">
+                                        <a href="{{cacheKey}}?page={{gridview.pages}}">
+                                                <img src="/assets/img/pagelast.gif">
+                                        </a>
+                                </span>
+		        </div>
+                </div>
+        </div>
+</div>

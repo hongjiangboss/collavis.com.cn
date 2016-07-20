@@ -1,0 +1,87 @@
+<div class="container-fluid">
+        {{> 'titlebar'}}
+        <div class="row" style="margin-top:4em">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5">
+                        <form class="form-horizontal" method="post" action="/product/grant-edit.html?{{querystr}}" id="h-form-grant">
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">微信</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="wx" id="h-wx" value="{{grant.wx}}" readonly />
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">姓名</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="name" id="h-name" value="{{grant.name}}"/>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">代理级别</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="level" id="h-level" value="{{grant.level}}" />
+                                                <small style="color:#646464">代理级别必须是一个阿拉伯数字</small>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">开始日期</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="begins" id="h-begins" value="{{grant.begins}}"/>
+                                                <small style="color:#646464">格式：2016-10-01</small>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">结束日期</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="finish" id="h-finish" value="{{grant.finish}}"/>
+                                                <small style="color:#646464">格式：2016-10-01</small>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10 h-message" id="h-message"></div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="button" class="btn btn-primary" id="h-submit" onclick="hedit()">编辑</button>
+                                        </div>
+                                </div>
+                        </form>
+                </div>
+        </div>
+</div>
+<script type="text/javascript">
+function hedit () {
+        var params = {
+                wx:     jQuery('#h-wx').val(),
+                name:   jQuery('#h-name').val(),
+                level:  jQuery('#h-level').val(),
+                begins: jQuery('#h-begins').val(),
+                finish: jQuery('#h-finish').val()
+        };
+        if (params.wx.length === 0) {
+                return jQuery('#h-message').html('微信号不能为空');
+        }
+        if (params.name.length === 0) {
+                return jQuery('#h-message').html('姓名不能为空');
+        }
+        if (/^[\d]+$/i.test(params.level) == false) {
+                return jQuery('#h-message').html('代理级别必须是数字');
+        }
+        if (/^[\d]{4}-[\d]{2}-[\d]{2}$/i.test(params.begins) == false) {
+                return jQuery('#h-message').html('开始日期格式错误');
+        }
+        if (/^[\d]{4}-[\d]{2}-[\d]{2}$/i.test(params.finish) == false) {
+                return jQuery('#h-message').html('结束日期格式错误');
+        }
+        if (params.begins > params.finish) {
+                return jQuery('#h-message').html('开始日期不能晚于结束日期');
+        }
+        jQuery.post(jQuery('#h-form-grant').attr('action'), params, function (result) {
+                if (result['code'] == '0') {
+                        alert(result['message']);
+                        window.location.href = result['href'];
+                        return;
+                }
+                jQuery('#h-message').html(result['message'])
+        })
+}
+</script>

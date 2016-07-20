@@ -1,0 +1,85 @@
+<div id="container">
+        <div id="content">
+                <h2 class="page_tit">{{mainTitle}}</h2>
+                <div class="beautyguide">
+                        <div class="event_titbox" style="border-bottom:0"></div>
+                        <div class="guide_view">
+                                <style type="text/css">
+                                .h-searchbox {font-size: 15px;color:#646464;line-height:2em;text-align:center}
+                                .h-searchbox input {padding: 0.5em;margin:auto 0.25em;width:300px}
+                                .h-searchbox a {background: #7a7a7a;color:#ffffff;padding:0.5em 1.5em;border-radius: 0.25em}
+                                .h-searchbox small {font-size: 12px;color:#ee3966}
+                                .h-message {text-align:center;font-size:18px;color:#7a7a7a;margin-top:2em}
+                                .h-grant-table {
+                                        border-top: 1px #ccc solid;
+                                        border-left:1px #ccc solid;
+                                        width:500px;
+                                        margin-top: 4em;
+                                        margin-left: 19em;
+                                }
+                                .h-grant-table th, .h-grant-table td {
+                                        border-right: 1px #ccc solid;
+                                        border-bottom: 1px #ccc solid;
+                                        padding: 0.75em 1em;
+                                        line-height: 1.75em;
+                                        color: #7a7a7a;
+                                        font-size: 14px;
+                                }
+                                .h-grant-table th {
+                                        text-align: right;
+                                }
+                                .h-grant-table td {
+                                        text-align: left;
+                                        font-weight: bold;
+                                }
+                                </style>
+                                <div class="h-searchbox">
+                                        <label>{{searchLabel}}</label>
+                                        <input type="text" id="h-wx" />
+                                        <a onclick="hsearch()" style="cursor:pointer">{{searchButton}}</a>
+                                        <br />
+                                        <small>{{searchComment}}</small>
+                                </div>
+                                {{#ifEq grantEmpty '1'}}
+                                <div class="h-message">{{{message}}}</div>
+                                {{else}}
+                                <table class="h-grant-table">
+                                        <tr>
+                                                <th width="25%">{{grantWX}}</th>
+                                                <td>{{grant.wx}}</td>
+                                        </tr>
+                                        <tr>
+                                                <th width="25%">{{grantName}}</th>
+                                                <td>{{grant.name}}</td>
+                                        </tr>
+                                        <tr>
+                                                <th width="25%">{{grantLevel}}</th>
+                                                <td>{{grant.level}}</td>
+                                        </tr>
+                                        <tr>
+                                                <th width="25%">{{grantBegins}}</th>
+                                                <td>{{grant.begins}}</td>
+                                        </tr>
+                                        <tr>
+                                                <th width="25%">{{grantFinish}}</th>
+                                                <td>{{grant.finish}}</td>
+                                        </tr>
+                                        <tr>
+                                                <th width="25%">{{grantTimeout}}</th>
+                                                <td>{{grant.timeout}}{{grantDay}}</td>
+                                        </tr>
+                                </table>
+                                {{/ifEq}}
+                        </div>
+                </div>
+        </div>
+</div>
+<script type="text/javascript">
+function hsearch () {
+        var wx = jQuery('#h-wx').val();
+        if (wx.length === 0) {
+                return alert('微信号不能为空');
+        }
+        window.location.href='/{{htmlLang}}/search.html?wx='+encodeURIComponent(wx);
+}
+</script>

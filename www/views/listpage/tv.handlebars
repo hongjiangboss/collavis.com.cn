@@ -1,0 +1,56 @@
+<div id="container">
+        <div id="content">
+                <h2 class="page_tit">
+                        <img src="{{assign tv.title '/assets/img/h2_tv_tit.gif'}}" />
+                </h2>
+                <div class="beautyguide">
+                        <div class="beautytv_banner">
+                                <a href="{{assign tv.href ''}}">
+                                        <span class="banner_img">
+                                                <img width="980px" height="324px" src="{{assign tv.image '/assets/sample/product/MNT_1602253645417088.jpg'}}">
+                                        </span>
+                        	</a>
+                        </div>
+                        <div class="trend_sorting" style="height:18px">
+                                <span>{{totalNum}} <strong>{{gridview.count}}</strong> {{totalUnit}}</span>
+                        </div>
+                        <div class="beautytvlist" style="padding-bottom:2em">
+                                <ul>
+                                        {{#each gridview.datalist}}
+                                        <li style="margin-top:40px;margin-bottom:40px">
+                                                <a href="{{href}}">
+                                                        <span class="tv_thum">
+                                                                <img src="{{image}}" />
+                                                        </span>
+                                                        <strong>{{title}}</strong>
+                                                        <span>
+                                                                <em>{{datetime}}</em>
+                                                                <em>{{visited}}</em>
+                                                        </span>
+                                                </a>
+                                        </li>
+                                        {{/each}}
+                                </ul>
+                        </div>
+                        <div class="pagingArea">
+                                <span class="prev">
+                                        <a href="{{cacheKey}}?page=1">
+                                                <img src="/assets/img/pagefirst.gif">
+                                        </a>
+                                </span>
+                                {{#each gridview.pagebars}}
+                                        {{#if active}}
+                                        <a class="current" href="javascript:void(0);">{{num}}</a>
+                                        {{else}}
+                                        <a  href="{{href}}">{{num}}</a>
+                                        {{/if}}
+                                {{/each}}
+                                <span class="next">
+                                        <a href="{{cacheKey}}?page={{gridview.pages}}">
+                                                <img src="/assets/img/pagelast.gif">
+                                        </a>
+                                </span>
+                        </div>
+                </div>
+        </div>
+</div>

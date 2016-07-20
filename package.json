@@ -1,0 +1,41 @@
+{
+        "name": "collavis.com.cn",
+        "version": "0.1.0",
+        "private": true,
+        "main": "client/main.js",
+        "scripts": {
+                "client-start": "electron .",
+                "client-dev": "electron . --debug",
+                "client-install": "npm run pack && npm run client-install-linux && npm run client-install-window",
+                "client-install-linux": "cp ./dist-client/collavis-v0.1.0.asar ./dist-client/collavis-v0.1.0-linux-x64/resources/default_app.asar",
+                "client-install-window": "cp ./dist-client/collavis-v0.1.0.asar ./dist-client/collavis-v0.1.0-win32-x64/resources/default_app.asar",
+                "client-pack": "asar pack ./client ./dist-client/collavis-v0.1.0.asar",
+                "client-pack-dev": "asar pack ./client ./dist-client/collavis-v0.1.0-development.asar",
+                "client-assets": "sass --watch ./client/assets/sass/stylesheet.scss:./client/assets/css/stylesheet.min.css --style compressed",
+                "client-custom": "sass --watch ./client/custom/assets/sass/stylesheet.scss:./client/custom/assets/css/stylesheet.min.css --style compressed",
+                "client-iconcss": "sass ./client/assets/sass/themify-icons.scss:./client/assets/css/themify-icons.min.css --style compressed",
+                "start-ahttpd": "pm2 start ./sbin/administrator-master.js",
+                "start-ahttpd-dev": "nodemon ./sbin/administrator-httpd.js",
+                "start-whttpd": "pm2 start ./sbin/www-master.js",
+                "start-whttpd-dev": "nodemon ./sbin/www-httpd.js",
+                "start-css": "sass --watch ./www/assets/sass/stylesheet.scss:./www/assets/css/stylesheet.min.css --style compressed"
+        },
+        "dependencies": {
+                "express": "4.14.0",
+                "express-handlebars": "3.0.0",
+                "express-session": "1.14.0",
+                "connect-redis": "3.1.0",
+                "express-session-rethinkdb": "0.4.1",
+                "connect-multiparty": "2.0.0",
+                "body-parser": "1.15.2",
+                "compression": "1.6.2",
+                "cookie-parser": "1.4.3",
+                "file-stream-rotator": "0.0.6",
+                "jugglingdb": "2.0.0-rc4",
+                "jugglingdb-redis": "0.0.2-2",
+                "jugglingdb-rethink": "1.1.15",
+                "jugglingdb-arango": "0.0.1",
+                "morgan": "1.7.0",
+                "pm": "2.2.6"
+        }
+}

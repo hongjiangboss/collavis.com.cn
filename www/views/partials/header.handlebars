@@ -1,0 +1,91 @@
+<div id="header">
+        <div id="head">
+                <div class="headin">
+                        <div class="globel" style="top:6px">
+                                <ul>
+                                        {{#each langLocales}}
+                                        <li>
+                                                {{#ifEq code htmlLang}}
+                                                <a class="on" href="/{{href}}">{{name}}</a>
+                                                {{else}}
+                                                <a href="{{href}}">{{name}}</a>
+                                                {{/ifEq}}
+                                        </li>
+                                        {{/each}}
+                                </ul>
+                        </div>
+                        <h1 style="margin-top:-28px">
+                                <a href="/{{htmlLang}}/home{{extname}}">
+                                        <img alt="" src="/assets/img/logo.jpg" style="height:80px"/>
+                                </a>
+                        </h1>
+                        <div class="mainsearch" style="top:6px">
+                                <form id="topSearchForm" method="post" action="">
+                                        <input id="topSchPrdValue" type="text" onkeypress="javascript:if(event.keyCode == 13){topSearch(); return false;}"
+                                                onclick="" name="topsearch" value="{{commonSearch}}" />
+                                        <a class="btn_search" href="javacript:void(0)" onclick="topSearch()"></a>
+                                </form>
+                        </div>
+                </div>
+        </div>
+        <div id="GNB">
+                <div id="GNB_in" style="width:742px;padding-left:0;padding-right:0">
+                        <ul>
+                                <li class="h-gnb gnb1 on" style="margin-left:28px">
+                                        <a onclick="javascript:void(0)" style="width:80px">
+                                                <span class="h-header-nav">{{nav.n100}}</span>
+                                        </a>
+                                </li>
+                                <li class="h-gnb gnb2">
+                                        <a onclick="javascript:void(0)" style="width:80px">
+                                                <span class="h-header-nav">{{nav.n200}}</span>
+                                        </a>
+                                </li>
+                                <li class="h-gnb gnb3">
+                                        <a onclick="javascript:void(0)" style="width:80px">
+                                                <span class="h-header-nav">{{nav.n300}}</span>
+                                        </a>
+                                </li>
+                                <li class="h-gnb gnb4" style="margin-left:156px">
+                                        <a onclick="javascript:void(0)" style="width:80px">
+                                                <span class="h-header-nav">{{nav.n400}}</span>
+                                        </a>
+                                </li>
+                        </ul>
+                </div>
+                <div id="gnb_over" style="display: none">
+                        <div class="gnb_over_in">
+                                <div class="over1">
+                                        <ul>
+                                                {{#each categories}}
+                                                <li><a href="/{{htmlLang}}/product/{{name}}{{extname}}">{{text}}</a></li>
+                                                {{/each}}
+                                        </ul>
+                                </div>
+                                <div class="over3">
+                                        <ul>
+                                                <li><a href="/{{htmlLang}}/guide{{extname}}">{{nav.n201}}</a></li>
+                                                <li><a href="/{{htmlLang}}/tv{{extname}}">{{nav.n202}}</a></li>
+                                        </ul>
+                                </div>
+                                <div class="over2">
+                                        <ul>
+                                                <li><a href="/{{htmlLang}}/zhaomu{{extname}}">{{nav.n301}}</a></li>
+                                                <li><a href="/{{htmlLang}}/school{{extname}}">{{nav.n302}}</a></li>
+                                                <li><a href="/{{htmlLang}}/search{{extname}}">{{nav.n303}}</a></li>
+                                                <li><a href="/{{htmlLang}}/story{{extname}}">{{nav.n304}}</a></li>
+                                        </ul>
+                                </div>
+                                <div class="over4">
+                                        <ul>
+                                                <li><a href="/{{htmlLang}}/news{{extname}}">{{nav.n401}}</a></li>
+                                                <li><a href="/{{htmlLang}}/brand{{extname}}">{{nav.n402}}</a></li>
+                                                <li><a href="/{{htmlLang}}/org{{extname}}">{{nav.n403}}</a></li>
+                                                <li><a href="/{{htmlLang}}/store{{extname}}">{{nav.n404}}</a></li>
+                                                <li><a href="/{{htmlLang}}/mall{{extname}}">{{nav.n405}}</a></li>
+                                        </ul>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>

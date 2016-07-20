@@ -1,0 +1,102 @@
+<div id="mainRoll">
+        <style type="text/css">#slideshow1 img {height: 694px !important}</style>
+        <ul id="slideshow1" style="overflow: hidden;">
+                {{#each slideshows}}
+                <li style="background:{{rgb}} none repeat scroll 0% 0%">
+                        <a href="{{href}}" target="_blank">
+                                <img src="{{src}}" />
+                        </a>
+                </li>
+                {{/each}}
+        </ul>
+        <div class="mabt">
+                <a id="prev1" class="maR_prev" href="#"></a>
+                <a id="next1" class="maR_next" href="#"></a>
+        </div>
+</div>
+<div id="main_con">
+        <div class="main_pdt">
+                <div class="mp_L">
+                        <div class="imgskin">
+                                <a href="{{assign page.lefttop_href ''}}">
+                                        <span>
+                                                <img style="height: 243px; right: 0px; top: 0px; width: 560px;"
+                                                        src="{{assign page.lefttop_img '/assets/sample/MNT1601059783757423.gif'}}" />
+                                        </span>
+                                        <em class="tx_img1">
+                                                <img src="{{assign page.lefttop_text '/assets/sample/tx_img1.png'}}" />
+                                        <em>
+                                </a>
+                        </div>
+                        <div class="imgeye">
+                                <a class="base" href="{{assign page.leftbottom_href ''}}">
+                                        <span>
+                                                <img style="height: 244px; left: 0px; top: 0px; width: 274px;"
+                                                        src="{{assign page.leftbottom_img '/assets/sample/MNT1601059784096163.gif'}}" />
+                                        </span>
+                                        <em class="tx_img3">
+                                                <img src="{{assign page.leftbottom_text '/assets/sample/tx_img3.png'}}" />
+                                        </em>
+                                </a>
+                                <a class="eye" href="{{assign page.leftbottom2_href ''}}">
+                                        <span>
+                                                <img style="height: 244px; right: 0px; top: 0px; width: 274px;"
+                                                        src="{{assign page.leftbottom2_img '/assets/sample/MNT_1601059784374413.gif'}}" />
+                                        </span>
+                                        <em class="tx_img4">
+                                                <img src="{{assign page.leftbottom2_text '/assets/sample/tx_img3.png'}}" />
+                                        </em>
+                                </a>
+                        </div>
+
+                </div>
+                <div class="mp_R">
+                        <a class="eye" href="/{{htmlLang}}/guide.html">
+                                <em class="tx_img2">
+                                        <img src="{{assign page.right_text '/assets/sample/tx_img2.png'}}" />
+                                </em>
+                                <span>
+                                        <img style="height: 499px; right: 0px; top: 0px; width: 408px;"
+                                                src="{{assign page.right_img '/assets/sample/MNT_1512238622386584.gif'}}" />
+                                </span>
+                        </a>
+                </div>
+        </div>
+        <div class="vedioarea">
+                <a href="/{{htmlLang}}/tv.html">
+                        <div class="vedio">
+                                <img src="{{assign page.bottom_img '/assets/sample/MNT_1512216631774178.jpg'}}" />
+                        </div>
+                        <img src="{{assign page.bottom_text '/assets/sample/tx_text.png'}}" />
+                </a>
+        </div>
+        <form id="frm1" method="post" name='frm1'>
+                <div class="mailbox">
+                        <label for="mail" style="color:#7a7a7a">
+                                <i class="ti-search"></i>{{searchLabel}}
+                        </label>
+                        <input id="h-wx" type="text" name="c_email" />
+                        <a onclick="hsearch()">{{searchButton}}</a>
+                </div>
+        </form>
+</div>
+<script type="text/javascript" src="/assets/js/jquery.cycle.all.js"></script>
+<script type="text/javascript">
+function cycle () {
+        $('#slideshow1').cycle({
+                fx:      'turnLeft',
+                prev:    '#prev1',
+                next:    '#next1',
+                pager:   '#nav',
+        });
+}
+$(window).resize(cycle);
+cycle();
+function hsearch () {
+        var wx = jQuery('#h-wx').val();
+        if (wx.length === 0) {
+                return alert('微信号不能为空');
+        }
+        window.location.href='/{{htmlLang}}/search.html?wx='+encodeURIComponent(wx);
+}
+</script>

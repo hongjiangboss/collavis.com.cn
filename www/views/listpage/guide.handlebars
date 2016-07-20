@@ -1,0 +1,92 @@
+<div id="container">
+        <div id="content">
+                <h2 class="page_tit">
+                        <img src="{{assign guide.title '/assets/img/tit_beauty.jpg'}}" />
+                </h2>
+                <div class="beautyguide">
+                        <div class="trend_sorting" style="height:18px">
+                                <span>{{totalNum}} <strong>{{gridview.count}}</strong> {{totalUnit}}</span>
+                        </div>
+                        <div class="beautytvlist guide_pin" style="padding-bottom:2em;padding-top:2em">
+                                <div class="grid container-fluid" id="masonry" style="height:auto !important">
+                                        {{#each gridview.datalist}}
+                                        <div class="grid-item pinimg" style="float:left">
+                                                <span class="guide_thum">
+                                                        <a href="{{href}}">
+                                                                <img src="{{image}}">
+							</a>
+						</span>
+						<span class="guide_tit">
+                                                        <a href="{{href}}">{{title}}</a>
+                                                </span>
+						<span class="guide_sub">
+                                                        <a href="{{href}}">{{description}}</a>
+                                                </span>
+						<span class="guide_count">
+							<em>{{datetime}}</em>
+							<em>{{listVisit}}: {{visited}}</em>
+						</span>
+						<a class="readmore" href="{{href}}">
+                                                        <span class="hidden"> </span>
+                                                </a>
+					</div>
+                                        {{/each}}
+                                        <div id="h-grid-more" style="clear:both;float:none"></div>
+                                </div>
+                                <div class="more_pin">
+                                        <a listscale="10" pageno="2" class="append-button" onclick="hmore(this)">
+                                        {{more}}
+                                        </a>
+				</div>
+                        </div>
+                </div>
+        </div>
+</div>
+<script type="text/javascript" src="/assets/js/masonry.pkgd.min.js"></script>
+<script type="text/javascript">
+var pageNum = 2;
+$(function(){
+        jQuery('#masonry').masonry({
+                itemSelector: '.grid-item'
+        });
+});
+function hmore (o) {
+        jQuery.get('{{self}}?page='+pageNum, function (result) {
+                if (result.length === 0) {
+                        return jQuery(o).html('{{nomore}}');
+                }
+
+                var html = '';
+                for (let i = 0; i < result.length; i++) {
+                        html = html + moreItem(result[i]);
+                }
+                jQuery('#h-grid-more').before(html);
+                jQuery('#masonry').css('height', 'auto');
+                pageNum += 1;
+        });
+}
+function moreItem (o) {
+        return [
+                '<div class="grid-item pinimg" style="float:left">',
+                        '<span class="guide_thum">',
+                                '<a href="' + o.href + '">',
+                                        '<img src="' + o.image + '">',
+                                '</a>',
+                        '</span>',
+                        '<span class="guide_tit">',
+                                '<a href="' + o.href + '">' + o.title + '</a>',
+                        '</span>',
+                        '<span class="guide_sub">',
+                                '<a href="' + o.href + '">' + o.description + '</a>',
+                        '</span>',
+                        '<span class="guide_count">',
+                                '<em>' + o.datetime + '</em>',
+                                '<em>' + o.listVisit + ':' + o.visited + '</em>',
+                        '</span>',
+                        '<a class="readmore" href="' + o.href + '">',
+                                '<span class="hidden"> </span>',
+                        '</a>',
+                '</div>'
+        ].join('')
+}
+</script>

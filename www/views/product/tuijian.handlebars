@@ -1,0 +1,41 @@
+<h3 class="pdttit">
+        <span class="fl">{{__ 'xgProduct'}}</span>
+</h3>
+<div class="pdt_zim">
+        <ul>
+                {{#each xgProduct}}
+                <li>
+                        <span class="zim_thum">
+                                <img src="{{image}}" />
+                        </span>
+                        <span class="zim_tit">{{title}}</span>
+                        <span class="zim_cost">{{price}}</span>
+                </li>
+                {{/each}}
+        </ul>
+</div>
+<div class="guide_tip">
+        <h3>{{__ 'tlProduct'}}</h3>
+        <div class="tipbt">
+                <a data-jcarouselcontrol="true" class="tip_left jcarousel-control-prev inactive" href="#">
+                        <span class="hidden"></span>
+                </a>
+                <a data-jcarouselcontrol="true" class="tip_right jcarousel-control-next" href="#">
+                        <span class="hidden"></span>
+                </a>
+        </div>
+        <div class="tip_roll jcarousel">
+                <ul>
+                        {{#each tlProduct}}
+                        <li>
+                                <a href="{{href}}">
+                                        <img src="{{image}}" />
+                                        <span class="overbg">
+                                                {{title}}<em>{{date}}</em>
+                                        </span>
+                                </a>
+                        </li>
+                        {{/each}}
+                </ul>
+        </div>
+</div>

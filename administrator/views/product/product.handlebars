@@ -1,0 +1,57 @@
+<div class="container-fluid">
+        {{> 'titlebar'}}
+        <div class="row" style="margin-top:1em">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="btn-group" role="group">
+                                <a href="/product/add.html?{{querystr}}" class="btn btn-primary">添加产品</a>
+                        </div>
+                        <table class="table table-bordered table-striped" style="width:100% !important;margin-top:0.5em">
+                                <thead>
+                                        <tr>
+                                                <th style="width:100px">编号</th>
+                                                <th>标题</th>
+                                                <th style="width:200px">分类</th>
+                                                <th style="width:200px">操作</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {{#each gridview.datalist}}
+                                        <tr>
+                                                <td>{{{num}}}</td>
+                                                <td>{{{title}}}</td>
+                                                <td>{{{category_format}}}</td>
+                                                <td>
+                                                        <a href="/product/edit.html?{{{__querystr}}}&id={{num}}">编辑</a>
+                                                        <a onclick="hdel('/product/del.html?{{{__querystr}}}&id={{num}}')">删除</a>
+                                                </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{#ifEq gridview.datalist.length 0}}
+                                        <td colspan="5" style="text-align:center">暂时没有数据</td>
+                                        {{/ifEq}}
+                                </tbody>
+                        </table>
+                        <div class="btn-group" role="group">
+                        {{#each gridview.pagebars}}
+                                {{#if active}}
+                                <a href="{{{href}}}" class="btn btn-primary">{{num}}</a>
+                                {{else}}
+                                <a href="{{{href}}}" class="btn btn-default">{{num}}</a>
+                                {{/if}}
+                        {{/each}}
+                        </div>
+                </div>
+        </div>
+</div>
+<script type="text/javascript">
+function hdel (uri) {
+        if (confirm('确定删除所选项')) {
+                jQuery.get(uri, function (result) {
+                        alert(result['message'])
+                        if (result['code'] === '0') {
+                                window.location.href = result['href'];
+                        }
+                })
+        }
+}
+</script>

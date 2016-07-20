@@ -1,0 +1,145 @@
+<div id="container">
+        <div id="content">
+                <h2 class="page_tit">{{mainTitle}}</h2>
+                <div class="store_map">
+                        <div id="h-map" style="width:980px;height:480px"></div>
+                        <form id="frm1" method="GET" name="frm1">
+                                <div class="map_search">
+                                        <h3 style="color:#7a7a7a;font-size:18px">{{mainTitle}}</h3>
+                                        <label style="color:#7a7a7a">{{storeArea}}</label>
+                                        <input type="text" id="h-keyword" />
+                                        <span class="button">
+                                                <a class="type1" onclick="hsearch()">{{searchButton}}</a>
+                                        </span>
+                                </div>
+                        </form>
+                </div>
+                <div class="event_box">
+                        <div class="total_box">
+                                <span class="num">{{totalNum}}<em>{{assign gridview.count 0}}</em>{{totalUnit}}</span>
+                        </div>
+                </div>
+                <div class="tablestyle1">
+                        <table>
+                                <colgroup>
+                                        <col width="200px" />
+                                        <col />
+                                        <col width="140px" />
+                                        <col width="140px" />
+                                </colgroup>
+                                <thead>
+                                        <tr>
+                                                 <th>{{storeName}}</th>
+                                                 <th>{{storeAddress}}</th>
+                                                 <th>{{storeMobile}}</th>
+                                                 <th>{{storeInfo}}</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        <style type="text/css">
+                                        .h-map-btn {
+                                                background:#7a7a7a;
+                                                color:#fff !important;
+                                                padding:0.5em 1em;
+                                                text-decoration: none !important;
+                                                cursor: pointer;
+                                        }
+                                        </style>
+                                        {{#each gridview.datalist}}
+                                        <tr>
+                                                <td>{{name}}</td>
+                                                <td class="tit">{{address}}</td>
+                                                <td>{{mobile}}</td>
+                                                <td>
+                                                        <a onclick="openMap(this)" class="h-map-btn"
+                                                                data-name="{{name}}"
+                                                                data-address="{{address}}"
+                                                                data-mobile="{{mobile}}"
+                                                                data-xandy="{{xandy}}"
+                                                        >{{btn}}</a>
+                                                </td>
+                                        </tr>
+                                        {{/each}}
+                                </tbody>
+                        </table>
+                        <div class="pagingArea">
+                                <span class="prev">
+                                        <a href="{{cacheKey}}?page=1">
+                                                <img src="/assets/img/pagefirst.gif">
+                                        </a>
+                                </span>
+                                {{#each gridview.pagebars}}
+                                        {{#if active}}
+                                        <a class="current" href="javascript:void(0);">{{num}}</a>
+                                        {{else}}
+                                        <a  href="{{href}}">{{num}}</a>
+                                        {{/if}}
+                                {{/each}}
+                                <span class="next">
+                                        <a href="{{cacheKey}}?page={{gridview.pages}}">
+                                                <img src="/assets/img/pagelast.gif">
+                                        </a>
+                                </span>
+                        </div>
+                </div>
+        </div>
+</div>
+<div style="width:530px; top: 960px;left:410px;display:none" tabindex="0" class="commonLayer" id="h-map-body">
+	<div class="inner">
+		<div class="poptit">{{mainTitle}}
+                        <button type="button" class="btn_close" onclick="jQuery('#h-map-body').hide()"
+                                style="background-image:url('/assets/img/bt_layerclose.png')">
+                                <span class="blind">닫기</span>
+                        </button>
+                </div>
+		<div class="common_con">
+                        <iframe class="layer_map" data-src="/{{htmlLang}}/map.html?xandy="
+                                style="width: 490px; height: 476px;border:0" id="h-fmap"
+                        ></iframe>
+                        <div class="layer_storelist">
+        			<strong id="h-map-name"></strong>
+        			<ul>
+        				<li>
+        					<span>{{storeMobile}}</span>
+        					<span id="h-map-mobile"></span>
+        				</li>
+        				<li>
+        					<span>{{storeAddress}}</span>
+        					<span id="h-map-address"></span>
+        				</li>
+        			</ul>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={{{mapKey}}}"></script>
+<script type="text/javascript">
+var map = new BMap.Map('h-map');
+var initmap = '{{initmap}}' || '117.030604,36.680716';
+if (initmap.indexOf(',') !== -1) {
+        var buffers = initmap.split(',');
+        var pointer = new BMap.Point(buffers[0], buffers[1]);
+        var marker = new BMap.Marker(pointer);
+        map.centerAndZoom(pointer, 15);
+        map.enableScrollWheelZoom(true);
+        map.addOverlay(marker);
+}
+
+function openMap (o) {
+        jQuery('#h-map-body').show();
+        jQuery('#h-map-name').html(jQuery(o).attr('data-name'));
+        jQuery('#h-map-address').html(jQuery(o).attr('data-address'));
+        jQuery('#h-map-mobile').html(jQuery(o).attr('data-mobile'));
+        jQuery('#h-fmap').attr('src', jQuery('#h-fmap').attr('data-src') + jQuery(o).attr('data-xandy'));
+}
+
+function hsearch () {
+        var keyword = jQuery('#h-keyword').val();
+        if (keyword.length === 0) {
+                //return alert('地区关键词不能为空');
+                return;
+        }
+        window.location.href = '/{{htmlLang}}/store.html?keyword='+encodeURIComponent(keyword);
+}
+</script>

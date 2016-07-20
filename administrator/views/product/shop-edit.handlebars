@@ -1,0 +1,95 @@
+<div class="container-fluid">
+        {{> 'titlebar'}}
+        <div class="row" style="margin-top:4em">
+                <div class="col-xs-12" style="height:320px" id="h-map"></div>
+        </div>
+        <div class="row" style="margin-top:4em">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5">
+                        <form class="form-horizontal" method="post" action="/product/shop-edit.html?{{querystr}}" id="h-form-shop">
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">编号</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="num" id="h-num" value="{{shopID}}" readonly />
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">经纬度</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="xandy" id="h-xandy" value="{{data.xandy}}"/>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">名称</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="name" id="h-name" value="{{data.name}}"/>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">地址</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="address" id="h-address" value="{{data.address}}" />
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">省份</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="shenfen" id="h-shenfen" value="{{data.shenfen}}"/>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">城市</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="city" id="h-city" value="{{data.city}}" />
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label h-form-label">联系方式</label>
+                                        <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="mobile" id="h-mobile" value="{{data.mobile}}"/>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10 h-message" id="h-message"></div>
+                                </div>
+                                <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="button" class="btn btn-primary" id="h-submit" onclick="hedit()">编辑</button>
+                                        </div>
+                                </div>
+                        </form>
+                </div>
+        </div>
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={{{mapKey}}}"></script>
+<script type="text/javascript">
+function hedit () {
+        var params = {
+                num:      jQuery('#h-num').val(),
+                xandy:    jQuery('#h-xandy').val(),
+                name:     jQuery('#h-name').val(),
+                address:  jQuery('#h-address').val(),
+                shenfen:  jQuery('#h-shenfen').val(),
+                city:     jQuery('#h-city').val(),
+                mobile:   jQuery('#h-mobile').val(),
+                lang:     '{{codeLang}}'
+        };
+        if (params.xandy.length === 0) {
+                return jQuery('#h-message').html('经纬度不能为空');
+        }
+        jQuery.post(jQuery('#h-form-shop').attr('action'), params, function (result) {
+                if (result['code'] == '0') {
+                        alert(result['message']);
+                        window.location.href = result['href'];
+                        return;
+                }
+                jQuery('#h-message').html(result['message'])
+        })
+}
+
+var map = new BMap.Map("h-map");
+map.centerAndZoom('济南', 12);
+map.enableScrollWheelZoom(true);
+map.addEventListener("click",function(e){
+        jQuery('#h-xandy').val(e.point.lng + "," + e.point.lat);
+});
+</script>

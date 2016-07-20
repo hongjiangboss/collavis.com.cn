@@ -1,0 +1,139 @@
+<div id="container" style="padding-bottom: 0">
+        <div id="content" style="padding-bottom: 0">
+                <div id="container" style="padding-top:1em">
+                        <style type="text/css">#container{overflow-x:hidden;}.product_menu{display:none;}</style>
+
+                        {{#if page.first_view}}
+                        <div id="one">
+                                <div class="brand1">
+                                        <div class="topvisual">
+                                                <img src="{{assign page.first_top '/assets/sample/brand/brand1.jpg'}}" />
+                                        </div>
+                                        <div class="boxtype1">
+                                                <div id="box1" class="box1_1" >
+                                                        <img src="{{assign page.first_bottom_left '/assets/sample/brand/br_img1_1.png'}}" />
+                                                </div>
+                                                <div id="box2" class="box1_2">
+                                                        <img src="{{assign page.first_bottom_right '/assets/sample/brand/br_img1_2.png'}}" />
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                        {{/if}}
+                        {{#if page.second_view}}
+                        <div id="two">
+                                <div class="brand2">
+                                        <div id="s2_back02" class="box2_1">
+                                                <img src="{{assign page.second_left '/assets/sample/brand/br_img2_1.png'}}" />
+                                        </div>
+                                        <div id="s2_back01" class="box2_2">
+                                                <img src="{{assign page.second_right '/assets/sample/brand/br_img2_2.png'}}" />
+                                        </div>
+                                </div>
+                        </div>
+                        {{/if}}
+                        {{#if page.third_view}}
+                        <div id="three">
+                                <div class="brand3">
+                                        <div id="s3_deco01" class="box3_1">
+                                                <img src="{{assign page.third_left '/assets/sample/brand/br_img2_3.png'}}" />
+                                        </div>
+                                        <div id="s3_decoB_01" class="box3_2">
+                                                <img src="{{assign page.third_right '/assets/sample/brand/br_img2_4.png'}}" />
+                                        </div>
+                                </div>
+                        </div>
+                        {{/if}}
+                        {{#if page.fourth_view}}
+                        <div id="four">
+                                <div class="brand4">
+                                        <div id="s4_deco01" class="box4_1">
+                                                <img src="{{assign page.fourth_left '/assets/sample/brand/br_img3_1.png'}}" />
+                                        </div>
+                                        <div id="s4_decoB_01" class="box4_2">
+                                                <img src="{{assign page.fourth_right '/assets/sample/brand/br_img3_2.png'}}" />
+                                        </div>
+                                </div>
+                        </div>
+                        {{/if}}
+                </div>
+        </div>
+</div>
+<script type="text/javascript" src="/assets/js/TweenMax.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.superscrollorama.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	mainStart2();
+});
+function mainStart2(){
+	var num;
+
+	$('html,body').stop().animate({scrollTop : 0},100);
+	num = Number($("#one").css('height').substr(0,3));
+	(new TimelineLite({onComplete:initScrollAnimations}))
+		.append([
+			TweenMax.to( $('#box1'),.4, {delay:.3, css:{top: '-20px'}, ease:Back.easeOut}),
+			TweenMax.to( $('#box2'),.4, {delay:.1, css:{top: '60px'}, ease:Back.easeOut})
+		])
+	function initScrollAnimations() {
+		var controller = $.superscrollorama();
+	   var scrollDuration = 200;
+		controller.addTween('#two',(new TimelineLite({onStart:twoStart, onComplete:twoComplete}))
+			.append([
+				TweenMax.from( $('#s2_back02'),.8, {delay:.5, css:{top: '300px'}}),
+				TweenMax.from( $('#s2_back01'),.8, {delay:.1, css:{left: '-1400px'}})
+			]))
+
+		controller.addTween('#three',(new TimelineLite({onStart:threeStart, onComplete:threeComplete}))
+			.append([
+				TweenMax.from( $('#s3_deco01'),.8, {delay:.2, css:{right: '-800px'}}),
+				TweenMax.from( $('#s3_decoB_01'),.8, {delay:.3, css:{left: '-1200px'}})
+			]))
+		controller.addTween('#four',(new TimelineLite({onStart:fourStart, onComplete:fourComplete}))
+			.append([
+				TweenMax.from( $('#s4_deco01'),.8, {delay:.2, css:{left: '-1800px'}}),
+				TweenMax.from( $('#s4_decoB_01'),.8, {delay:.3, css:{right: '-1200px'}})
+			]))
+	}
+	function oneStart(){
+		$('html,body').stop().animate({scrollTop : 0},300);
+	}
+	function twoStart(){
+		if(isTwo){
+			num = Number($("#one").css('height').substr(0,3));
+			$('html,body').stop().animate({scrollTop : num+1070},500);
+		}else{
+			isTwo = true;
+		}
+	}
+	function twoComplete(){
+		document.getElementById("s2_back01").style.left = "";
+		document.getElementById("s2_back02").style.bottom = "";
+	}
+	function threeStart(){
+		if(isThree){
+			num = Number($("#one").css('height').substr(0,3));
+			$('html,body').stop().animate({scrollTop : num+2018},300);
+		}else{
+			isThree = true;
+		}
+	}
+	function threeComplete(){
+		document.getElementById("s3_deco01").style.left = "";
+		document.getElementById("s3_decoB_01").style.right = "";
+	}
+	function fourStart(){
+		if(isFour){
+			num = Number($("#one").css('height').substr(0,3));
+			$('html,body').stop().animate({scrollTop : num+2775},300);
+		}else{
+			isFour = true;
+		}
+	}
+	function fourComplete(){
+		document.getElementById("s3_deco01").style.left = "";
+		document.getElementById("s3_decoB_01").style.right = "";
+	}
+	var i, k, j, n = 1, isOne = true, isTwo = true, isThree = true, isFour = true;
+}
+</script>

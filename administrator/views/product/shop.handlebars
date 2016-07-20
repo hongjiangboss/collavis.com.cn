@@ -1,0 +1,81 @@
+<div class="container-fluid">
+        {{> 'titlebar'}}
+        <div class="row" style="margin-top:1em">
+                <div class="col-xs-6 col-md-4">
+                        <div class="btn-group" role="group">
+                                <a href="/product/shop-add.html?{{querystr}}" class="btn btn-primary">添加店铺</a>
+                        </div>
+                </div>
+                <div class="col-xs-12 col-md-8" style="text-align:right">
+                </div>
+        </div>
+        <div class="row" style="margin-top:1em">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-12" style="margin-top:1em">
+                                {{#ifEq isTabs true}}
+                                <ul class="nav nav-tabs" style="margin-bottom: 2em">
+                                        {{#each tabs}}
+                                        <li class="{{active}}" role="presentation">
+                                                <a href="{{href}}">{{name}}</a>
+                                        </li>
+                                        {{/each}}
+                                </ul>
+                                {{/ifEq}}
+                        </div>
+                        <table class="table table-bordered table-striped" style="width:100% !important;margin-top:0.5em">
+                                <thead>
+                                        <tr>
+                                                <th style="width:200px">名称</th>
+                                                <th>地址</th>
+                                                <th style="width:200px">联系方式</th>
+                                                <th style="width:200px">操作</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {{#each gridview.datalist}}
+                                        <tr>
+                                                <td>{{{name}}}</td>
+                                                <td>{{{address}}}</td>
+                                                <td>{{{mobile}}}</td>
+                                                <td>
+                                                        <a href="/product/shop-edit.html?{{{__querystr}}}&id={{num}}">编辑</a>
+                                                        <a onclick="hdel('/product/shop-del.html?{{{__querystr}}}&id={{num}}')">删除</a>
+                                                </td>
+                                        </tr>
+                                        {{/each}}
+                                        {{#ifEq gridview.datalist.length 0}}
+                                        <td colspan="7" style="text-align:center">暂时没有数据</td>
+                                        {{/ifEq}}
+                                </tbody>
+                        </table>
+                        <div class="btn-group" role="group">
+                        {{#each gridview.pagebars}}
+                                {{#if active}}
+                                <a href="{{{href}}}" class="btn btn-primary">{{num}}</a>
+                                {{else}}
+                                <a href="{{{href}}}" class="btn btn-default">{{num}}</a>
+                                {{/if}}
+                        {{/each}}
+                        </div>
+                </div>
+        </div>
+</div>
+<script type="text/javascript">
+function hdel (uri) {
+        if (confirm('确定确认到期所选项')) {
+                jQuery.get(uri, function (result) {
+                        alert(result['message'])
+                        if (result['code'] === '0') {
+                                window.location.href = result['href'];
+                        }
+                })
+        }
+}
+function hsearch () {
+        var s = jQuery('#h-search').val();
+        if (s.length === 0) {
+                return alert('搜索关键词不能为空');
+        }
+        window.location.href = '/product/grant.html?{{{querystr}}}&search='+s;
+}
+</script>
