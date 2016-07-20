@@ -19,7 +19,7 @@
                                         <label class="col-sm-2 control-label h-form-label">代理级别</label>
                                         <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="level" id="h-level" value="{{grant.level}}" />
-                                                <small style="color:#646464">代理级别必须是一个阿拉伯数字</small>
+                                                <small style="color:#646464"></small>
                                         </div>
                                 </div>
                                 <div class="form-group">
@@ -63,9 +63,9 @@ function hedit () {
         if (params.name.length === 0) {
                 return jQuery('#h-message').html('姓名不能为空');
         }
-        if (/^[\d]+$/i.test(params.level) == false) {
+        /*if (/^[\d]+$/i.test(params.level) == false) {
                 return jQuery('#h-message').html('代理级别必须是数字');
-        }
+        }*/
         if (/^[\d]{4}-[\d]{2}-[\d]{2}$/i.test(params.begins) == false) {
                 return jQuery('#h-message').html('开始日期格式错误');
         }

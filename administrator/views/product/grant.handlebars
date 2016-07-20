@@ -48,11 +48,7 @@
                                                 <td>{{{timeout}}}</td>
                                                 <td>
                                                         <a href="/product/grant-edit.html?{{{__querystr}}}&id={{wx}}">编辑</a>
-                                                        {{#ifEq type 'e'}}
-                                                                {{#if isEffect}}
-                                                                <a onclick="hdel('/product/grant-del.html?{{{__querystr}}}&id={{wx}}')">确认</a>
-                                                                {{/if}}
-                                                        {{/ifEq}}
+                                                        <a onclick="hdel('/product/grant-del.html?{{{__querystr}}}&id={{wx}}')">确认过期</a>
                                                 </td>
                                         </tr>
                                         {{/each}}
