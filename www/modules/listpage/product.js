@@ -20,7 +20,8 @@ module.exports = common.Controller(function (params, req, res, next) {
                 }).then(function (data) {
                         data = data || {}
                         var settings = init.utils.JSONParse(data.options)
-                        return init.renderJSON(settings)
+                        return init.renderJSON(res, settings)
+                        
                         schema.Category.all().then(function (categories) {
                                 var category_name = ''
                                 params.categoryList = []
