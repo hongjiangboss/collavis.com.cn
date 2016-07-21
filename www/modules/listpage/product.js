@@ -19,8 +19,9 @@ module.exports = common.Controller(function (params, req, res, next) {
                         where: {name: 'PRODUCT#' + params.htmlLang}
                 }).then(function (data) {
                         data = data || {}
-                        var options = init.utils.JSONParse(data.options)
-
+                        var settings = init.utils.JSONParse(data.options)
+                        res.end(settings)
+                        return
                         schema.Category.all().then(function (categories) {
                                 var category_name = ''
                                 params.categoryList = []
@@ -51,7 +52,7 @@ module.exports = common.Controller(function (params, req, res, next) {
                                 init.renderCache(res, 'listpage/product', init.utils.update(params, {
                                         mainTitle: category_name,
                                         product: {
-                                                title: options['product_title']
+                                                title: settings['product_title']
                                         },
                                         gridview: common.Gridview(datalist, {
                                                 href: params.cacheKey,
