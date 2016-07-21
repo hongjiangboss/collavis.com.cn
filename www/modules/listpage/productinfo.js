@@ -22,7 +22,8 @@ module.exports = common.Controller(function (params, req, res, next) {
                 }).then(function (settings) {
                         settings = settings || {}
                         var options = init.utils.JSONParse(settings['options'])
-
+                        return init.renderJSON(res, options)
+                        
                         schema.Category.findOne({
                                 where: {name: data['category']}
                         }).then(function (category) {
