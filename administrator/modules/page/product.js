@@ -20,12 +20,36 @@ module.exports = common.Settings({
                         'default': '/assets/img/h2_tv_tit.gif',
                         'comment': '图片大小：360x24像素'
                 },
-                {
+                /*{
                         'type': 'upload',
                         'name': '详细页<br /><small>背景图</small>',
                         'key': 'product_image',
                         'default': '/assets/sample/product/MNT_1602253645417088.jpg',
                         'comment': '图片大小：980x324像素'
-                }
+                }*/
+                {
+                        'type': 'upload',
+                        'name': '詳細頁<br /><small>左背景图</small>',
+                        'key': 'left_image',
+                        'default': '/assets/img/pdtbg1.jpg',
+                        'comment': '图片大小：962x520'
+                },
+                {
+                        'name': '詳細頁<br /><small>左背景颜色</small>',
+                        'key': 'left_bgcolor',
+                        'default': '#ee3966'
+                },
+                {
+                        'type': 'upload',
+                        'name': '詳細頁<br /><small>右背景图</small>',
+                        'key': 'right_image',
+                        'default': '/assets/img/pdt14.jpg',
+                        'comment': '图片大小：962x520'
+                },
+                {
+                        'name': '詳細頁<br /><small>右背景颜色</small>',
+                        'key': 'right_bgcolor',
+                        'default': '#fef0ef'
+                },
         ]
 })
