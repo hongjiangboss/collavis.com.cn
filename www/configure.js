@@ -25,7 +25,7 @@ module.exports = init.configure({
         },
         lang: {
                 init: 'zh-CN',
-                enables: ['zh-CN', 'zh'],
+                enables: ['zh-CN'],
                 locales: ['en', 'zh-CN', 'zh', 'ja'],
                 keyword: {
                         'en':           'English',
