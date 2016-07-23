@@ -18,5 +18,6 @@ module.exports = function (req, res, next) {
                 currentLanguage = acceptLanguage.short
         }
 
-        res.redirect('/' + currentLanguage + '/home' + init.settings.extname)
+        //res.redirect('/' + currentLanguage + '/home' + init.settings.extname)
+        res.redirect('/' + init.settings.enables[0] + '/home' + init.settings.extname)
 }
