@@ -329,7 +329,7 @@ Initialize.prototype.__app = function () {
                         })
                 }
 
-                app.use(logger(init.settings.name, logOptions))
+                app.use(logger('combined', logOptions))
         }
 
 
