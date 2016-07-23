@@ -325,7 +325,7 @@ Initialize.prototype.__app = function () {
                                 date_format: 'YYYYMMDD',
                                 filename: path.join(logDir, this.settings.name + '-%DATE%.log'),
                                 frequency: 'daily',
-                                verbose: true
+                                verbose: false
                         })
                 }
 
