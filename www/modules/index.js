@@ -19,5 +19,5 @@ module.exports = function (req, res, next) {
         }
 
         //res.redirect('/' + currentLanguage + '/home' + init.settings.extname)
-        res.redirect('/' + init.settings.lang.enables[0] + '/home' + init.settings.extname)
+        res.redirect('/zh-CN/home.html')
 }
