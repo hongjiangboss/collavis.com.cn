@@ -15,6 +15,7 @@ module.exports = {
         'siteCopyright': 'collavis.com.cn, 2016 co.ltd',
         'footerCompany': '济南康婷生物科技有限公司 JINAN CO.LTD',
         'footerCopyright': '联系我们：400-636-9331 联系时间：周一至周五 09:00-18:00（法定节假日除外）',
+        'footerBenan': '鲁ICP备16027155号-1',
 
         'commonSearch': '搜索关键词',
         'searchLabel': '代理授权',
